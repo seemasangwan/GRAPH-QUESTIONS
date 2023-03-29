@@ -1,0 +1,45 @@
+class Solution {
+public:
+void bfs(int r,int c,vector<vector<char>>&grid,vector<vector<int>>&visit)
+{
+  int n=grid.size();
+  int m=grid[0].size();
+  int dr[]={-1,0,1,0};
+  int dc[]={0,-1,0,1};
+      visit[r][c]=1;
+  queue<pair<int,int>>q;
+  q.push({r,c});
+  while(!q.empty())
+  {
+      int r=q.front().first;
+      int c=q.front().second;
+      q.pop();
+for(int i=0;i<4;i++)
+      {
+  int nr=r+dr[i];
+  int nc=c+dc[i];
+  if(nr>=0&&nr<n&&nc>=0&&nc<m&&!visit[nr][nc]&&grid[nr][nc]=='1')
+ { q.push({nr,nc});
+      visit[nr][nc]=1;}
+      }
+  }   
+}
+    int numIslands(vector<vector<char>>& grid)
+     {  int cnt=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>visit(n,vector<int>(m,0));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(visit[i][j]==0&&grid[i][j]=='1')
+                {
+                    cnt++;
+                    bfs(i,j,grid,visit);
+                }
+            }
+        }
+        return cnt;
+    }
+};
